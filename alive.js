@@ -1,23 +1,24 @@
 
-console.log("welcom to consol")
+console.log("welcome to console");
 
-const dayOfWeek = new Date().getDay();
+// دالة لحساب رقم الأسبوع في السنة
+function getWeekNumber() {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 1);
+    const pastDays = Math.floor((now - start) / 86400000);
+    return Math.ceil((pastDays + start.getDay() + 1) / 7);
+}
 
-if (dayOfWeek === 1){ 
-    document.getElementById("day1").classList.add("active");
-    let x = document.getElementById("curent");
-    x.innerText = "DAY1";
-    console.log("day 1 active")
-}
-if (dayOfWeek === 3){ 
-    document.getElementById("day2").classList.add("active");
-    let x = document.getElementById("curent");
-    x.innerText = "DAY2";
-    console.log("day 2 active")
-}
-if (dayOfWeek === 5){ 
-    document.getElementById("day3").classList.add("active");
-    let x = document.getElementById("curent");
-    x.innerText = "DAY3";
-    console.log("day 3 active")
-}
+const week = getWeekNumber();
+
+// لدينا 3 أيام: 1, 2, 3
+// نريد الدوران بينها كل أسبوع
+const activeDay = ((week - 1) % 3) + 1;
+
+// تفعيل اليوم المناسب
+document.getElementById("day" + activeDay).classList.add("active");
+
+// وضع النص في الهيدر
+document.getElementById("curent").innerText = "DAY " + activeDay;
+
+console.log("Active Week Day =", activeDay);
